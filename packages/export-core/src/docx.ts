@@ -62,11 +62,11 @@ function blockToParagraphs(block: Block, includeMedia: boolean): (Paragraph | Ta
         .split('\n')
         .filter(Boolean)
         .map(
-          (line, i) =>
+          (line) =>
             new Paragraph({
               text: line,
               bullet: block.ordered ? undefined : { level: 0 },
-              numbering: block.ordered ? { reference: 'omni-ol', level: 0, instance: i } : undefined,
+              numbering: block.ordered ? { reference: 'omni-ol', level: 0, instance: 0 } : undefined,
             }),
         );
     case 'table': {
