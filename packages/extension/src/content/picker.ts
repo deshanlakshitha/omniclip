@@ -1,5 +1,6 @@
-import { type Block, type PickerMode } from '@omniclip/shared';
+import { type Block, type PickerMode, createBlock } from '@omniclip/shared';
 import { extractBlock } from './extract.js';
+import { cssPath } from './dompath.js';
 
 type CaptureHandler = (block: Block) => void;
 type CancelHandler = () => void;
@@ -183,10 +184,17 @@ export class ElementPicker {
       }
     });
     const merged = texts.join('\n\n');
-    const block = extractBlock(document.body); // base; we override below
-    block.type = 'region';
-    block.text = merged;
-    block.source.boundingRect = { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
+    const block = createBlock(
+      'region',
+      { text: merged },
+      {
+        url: location.href,
+        title: document.title,
+        domPath: cssPath(document.body),
+        capturedAt: new Date().toISOString(),
+        boundingRect: { x: x1, y: y1, width: x2 - x1, height: y2 - y1 },
+      },
+    );
     this.onCapture(block);
     this.flash();
   }
