@@ -81,9 +81,9 @@ export function BlockCard({
         <div className="move-menu" onClick={(e) => e.stopPropagation()}>
           {project.pages
             .filter((p) => p.id !== pageId)
-            .map((p, i) => (
+            .map((p) => (
               <button key={p.id} className="mini" onClick={() => { onMoveToPage(p.id); setShowMove(false); }}>
-                → {p.title ?? `Page ${i + 1}`}
+                → {p.title ?? `Page ${project.pages.indexOf(p) + 1}`}
               </button>
             ))}
           {project.pages.length <= 1 && <span className="hint">No other pages</span>}

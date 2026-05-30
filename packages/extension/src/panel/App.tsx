@@ -134,9 +134,14 @@ export function App() {
     try {
       const res = await downloadAsset(url, blockId);
       if (res.ok && res.base64) {
-        const block = project.pages.flatMap((p) => p.blocks).find((b) => b.id === blockId);
+        // Re-read fresh state: the block may have been deleted/edited during the async fetch.
+        const block = useStore
+          .getState()
+          .project.pages.flatMap((p) => p.blocks)
+          .find((b) => b.id === blockId);
+        if (!block?.asset) return;
         useStore.getState().updateBlock(blockId, {
-          asset: { ...block!.asset!, base64: res.base64, mime: res.mime, downloaded: true },
+          asset: { ...block.asset, base64: res.base64, mime: res.mime, downloaded: true },
         });
       } else {
         alert(`Download failed: ${res.error ?? 'unknown error'}`);
