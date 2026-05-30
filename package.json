@@ -1,0 +1,30 @@
+{
+  "name": "omniclip",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OmniClip — select any element on a page and compile it into DOCX, PDF, PPTX, TXT, Markdown or HTML.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:shared": "pnpm --filter @omniclip/shared build",
+    "build:export": "pnpm --filter @omniclip/export-core build",
+    "build:extension": "pnpm --filter @omniclip/extension build",
+    "dev": "pnpm --filter @omniclip/extension dev",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
